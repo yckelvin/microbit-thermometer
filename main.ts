@@ -27,7 +27,7 @@ function ShowTemperature (thisdegree: number) {
 }
 radio.onReceivedValue(function (name, value) {
     if (name == "GET") {
-        radio.sendValue("returnTemp", degree)
+        radio.sendValue("Temp", degree)
     } else if (name == "POST") {
         ShowTemperature(value)
         degree = value
