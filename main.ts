@@ -3,11 +3,6 @@ input.onButtonPressed(Button.A, function () {
     degree = Math.max(0, degree)
     ShowTemperature(degree)
 })
-radio.onReceivedString(function (receivedString) {
-    if (receivedString == "GET") {
-        radio.sendNumber(degree)
-    }
-})
 input.onButtonPressed(Button.B, function () {
     degree += 1
     degree = Math.min(25, degree)
@@ -31,16 +26,19 @@ function ShowTemperature (thisdegree: number) {
     }
 }
 radio.onReceivedValue(function (name, value) {
-    if (name == "POST") {
+    if (name == "GET") {
+        radio.sendValue("returnTemp", degree)
+    } else if (name == "POST") {
         ShowTemperature(value)
+        degree = value
     }
 })
-function getTemp () {
-    return degree
-}
 let x = 0
 let y = 0
 let row = 0
 let degree = 0
-degree = 0
-radio.setGroup(120)
+degree = randint(1, 25)
+radio.setGroup(5)
+radio.setTransmitPower(7)
+radio.setTransmitSerialNumber(true)
+ShowTemperature(degree)
